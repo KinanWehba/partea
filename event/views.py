@@ -16,11 +16,6 @@ def events(request):
     context={"events":page_obj}
     return render(request, "event/events_list.html", context)
 
-
- 
-
-
-
 def event_detail(request,eve_slug):
     event_detail = Event.objects.get(eve_slug=eve_slug)
     context = {'event_detail':event_detail}
