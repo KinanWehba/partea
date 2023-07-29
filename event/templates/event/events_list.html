@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>{{events.count}}+ events</h3>
+                        <h3>{{events_list.count}}+ events_list</h3>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
 
                     <div class="job_lists m-0">
                         <div class="row">
-                            {% for event in events %}
+                            {% for event in events_list %}
                             <div class="col-lg-12 col-md-12">
                                 <div class="single_jobs white-bg d-flex justify-content-between">
                                     <div class="jobs_left d-flex align-items-center">
@@ -124,7 +124,7 @@
                                             <img src="{{event.eve_image.url}}" alt=""width="75" height="50">
                                         </div>
                                         <div class="jobs_conetent">
-                                            <a href="{% url 'events:event_detail' event.eve_slug %}"><h4>{{event}}</h4></a>
+                                            <a href="{% url 'event:event_detail' event.eve_slug %}"><h4>{{event}}</h4></a>
                                             <div class="links_locat d-flex align-items-center">
                                                 <div class="location">
                                                     <p> <i class="fa fa-map-marker"></i>{{event.eve_venue}}</p>
@@ -138,7 +138,7 @@
                                     <div class="jobs_right">
                                         <div class="apply_now">
                                             <a class="heart_mark" href="#"> <i class="fa fa-heart"></i> </a>
-                                            <a href="{% url 'events:event_detail' event.eve_slug %}" class="boxed-btn3">Apply Now</a>
+                                            <a href="{% url 'event:event_detail' event.eve_slug %}" class="boxed-btn3">Apply Now</a>
                                         </div>
                                         <div class="date">
                                             <p>welcome</p>
@@ -149,21 +149,21 @@
                             {% endfor %}
 
                         </div>
-                        {% if events.has_other_pages %}
+                        {% if events_list.has_other_pages %}
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="pagination_wrap">
                                     <ul>
-                                        {% if events.has_previous  %}
-                                            <li><a href="?page={{events.previous_page_number}}"> <i class="ti-angle-left"></i> </a></li>
+                                        {% if events_list.has_previous  %}
+                                            <li><a href="?page={{events_list.previous_page_number}}"> <i class="ti-angle-left"></i> </a></li>
                                         {% endif %}
 
-                                        {% for i in events.paginator.page_range  %}
+                                        {% for i in events_list.paginator.page_range  %}
                                             <li><a href="?page={{i}}"><span>{{i}}</span></a></li>
                                         {% endfor %}
 
-                                        {% if events.has_next  %}
-                                        <li><a href="?page={{events.next_page_number}}"> <i class="ti-angle-right"></i> </a></li>
+                                        {% if events_list.has_next  %}
+                                        <li><a href="?page={{events_list.next_page_number}}"> <i class="ti-angle-right"></i> </a></li>
                                         {% endif %}
                                     </ul>
                                 </div>

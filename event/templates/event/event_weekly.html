@@ -125,7 +125,7 @@
                                             <img src="{{event.eve_image.url}}" alt=""width="75" height="50">
                                         </div>
                                         <div class="jobs_conetent">
-                                            <a href="{% url 'events:event_detail' event.eve_slug %}"><h4>{{event}}</h4></a>
+                                            <a href="{% url 'event:event_detail' event.eve_slug %}"><h4>{{event}}</h4></a>
                                             <div class="links_locat d-flex align-items-center">
                                                 <div class="location">
                                                     <p> <i class="fa fa-map-marker"></i>{{event.eve_venue}}</p>
@@ -139,7 +139,7 @@
                                     <div class="jobs_right">
                                         <div class="apply_now">
                                             <a class="heart_mark" href="#"> <i class="fa fa-heart"></i> </a>
-                                            <a href="{% url 'events:event_detail' event.eve_slug %}" class="boxed-btn3">Apply Now</a>
+                                            <a href="{% url 'event:event_detail' event.eve_slug %}" class="boxed-btn3">Apply Now</a>
                                         </div>
                                         <div class="date">
                                             <p>welcome</p>

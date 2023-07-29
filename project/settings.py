@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'venue',
     'contact',
     'home',
+    'django_bootstrap5',
     
 ]
 
