@@ -7,47 +7,41 @@ from datetime import datetime
 from unidecode import unidecode
 from multiselectfield import MultiSelectField
 
-VENUE =(
-    ('مطعم','مطعم'),
-
-    ('بار','بار')
-)
-TEPY = (
-    ('family', 'Family Events'),
-    ('couple', 'For Couples'),
-    ('women', 'For Women Only'),
-    ('men', 'For Men Only'),
-    ('public', 'Public Events'),
-    ('children', 'For Children'),
-)
 
 
+
+STARS = [
+        (0, '0'),
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    ]
 
 
 def image_upload(instance, image):
     now = datetime.now()
     timestamp = now.strftime('%Y%m%d%H%M%S')
-    # قم بإنشاء مجلد بإسم instance.id إذا لم يكن موجودًا
-    folder_path = f'venu/{instance.id}'
+    instance.save()
+    instance.refresh_from_db()
+    folder_path = f'Venue/{instance.id}'
     os.makedirs(folder_path, exist_ok=True)
-
-    # استخدم التاريخ والوقت المنسق في اسم الصورة
     image_path = f'{folder_path}/{timestamp}.png'
-
-
     return image_path
-
-
 
 class VenueCatagory(models.Model):
     cat_ve_name = models.CharField(_("Venue Catagory"), max_length=50)
+    class Meta:
+        verbose_name = _("Catagory")
+        verbose_name_plural = _("Categories")
     def __str__(self):
         return self.cat_ve_name
 
 class Venue(models.Model):
     ve_name = models.CharField('Venue Name', max_length=120)
     ve_description = models.TextField(_("Venue Description"))
-    ve_address = models.CharField(max_length=300)
+    ve_address = models.CharField(_("Venue Address"),max_length=300)
     ve_phone = models.CharField('Contact Phone', max_length=20, )
     ve_email_address = models.EmailField('Email Address', null=True, blank=True )
     ve_catagory = models.ForeignKey( VenueCatagory,verbose_name=_("Catagory"), on_delete=models.CASCADE)
@@ -55,8 +49,8 @@ class Venue(models.Model):
     ve_web = models.URLField('Website Address', null=True, blank=True )
     ve_slug = models.SlugField(null=True,blank=True)
     ve_image = models.ImageField(_("Venue Image"), upload_to=image_upload)
-
-  
+    ve_star = models.IntegerField(("Venue Star"),default=0,choices=STARS)
+        
     def save(self,*args,**kwargs):
         latin_name = unidecode(self.ve_name)
         self.ve_slug = slugify(latin_name)

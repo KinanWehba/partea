@@ -6,6 +6,7 @@ from django.utils.text import slugify
 from datetime import datetime
 from unidecode import unidecode
 from multiselectfield import MultiSelectField
+from django.contrib.auth.models import User
 
 VENUE =(
     ('مطعم','مطعم'),
@@ -25,14 +26,9 @@ TEPY = (
 def image_upload(instance, image):
     now = datetime.now()
     timestamp = now.strftime('%Y%m%d%H%M%S')
-    # قم بإنشاء مجلد بإسم instance.id إذا لم يكن موجودًا
     folder_path = f'event/{instance.id}'
     os.makedirs(folder_path, exist_ok=True)
-
-    # استخدم التاريخ والوقت المنسق في اسم الصورة
     image_path = f'{folder_path}/{timestamp}.png'
-
-
     return image_path
 
 
@@ -54,7 +50,7 @@ class Event(models.Model):
     eve_type = MultiSelectField(_("Event Type"), choices=TEPY, max_length=50)
     eve_date_start = models.DateField(_("Event Date"),null=True)
     eve_time_start = models.TimeField(_("Evevent Time"),null=True)
-    eve_user_add = models.CharField( max_length=50)
+    eve_owner = models.ForeignKey(User,related_name='event_user_add', verbose_name=_("User"), on_delete=models.CASCADE)
     eve_image = models.ImageField(_("Event Image"), upload_to=image_upload)
     eve_catagory = models.ForeignKey( EventCatagory,verbose_name=_("Catagory"), on_delete=models.CASCADE)
     eve_slug = models.SlugField(null=True,blank=True)
@@ -79,3 +75,4 @@ class Reservation(models.Model):
 
     def __str__(self):
         return str(self.res_name)
+    

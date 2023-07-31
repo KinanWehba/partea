@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect ,render
 from .models import Event
 from django.core.paginator import Paginator
-from .forms import ReservationForm
+from .forms import ReservationForm , EventForm
+from django.urls import reverse
 
 
 
@@ -33,3 +34,16 @@ def event_detail(request,eve_slug):
         form = ReservationForm()
     context = {'event_detail':event_detail,'form':form}
     return render(request,'event/event_detail.html',context)
+
+def add_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST ,request.FILES)
+        if form.is_valid():
+            myform=form.save(commit=False)
+            myform.eve_owner = request.user
+            myform.save()
+
+            return redirect(reverse('event:event_list'))
+    else:
+        form = EventForm()
+    return render(request,'event/add_event.html',{'form':form})
