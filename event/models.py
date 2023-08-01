@@ -23,11 +23,11 @@ TEPY = (
     ('children', 'For Children'),
 )
 
-def image_upload(instance, image):
+def image_upload(instance, filename):
     now = datetime.now()
     timestamp = now.strftime('%Y%m%d%H%M%S')
-    folder_path = f'event/{instance.id}'
-    os.makedirs(folder_path, exist_ok=True)
+    folder_path = f'event/{instance.eve_owner.id}'
+
     image_path = f'{folder_path}/{timestamp}.png'
     return image_path
 
@@ -48,8 +48,8 @@ class Event(models.Model):
     eve_venue = models.CharField(_("venue"), choices=VENUE,max_length=50)
     eve_published_at= models.DateTimeField(_(""), auto_now=True)
     eve_type = MultiSelectField(_("Event Type"), choices=TEPY, max_length=50)
-    eve_date_start = models.DateField(_("Event Date"),null=True)
-    eve_time_start = models.TimeField(_("Evevent Time"),null=True)
+    eve_date_start = models.DateField(_("Event Date"),null=True,blank=True)
+    eve_time_start = models.TimeField(_("Evevent Time"),null=True,blank=True)
     eve_owner = models.ForeignKey(User,related_name='event_user_add', verbose_name=_("User"), on_delete=models.CASCADE)
     eve_image = models.ImageField(_("Event Image"), upload_to=image_upload)
     eve_catagory = models.ForeignKey( EventCatagory,verbose_name=_("Catagory"), on_delete=models.CASCADE)
@@ -61,6 +61,14 @@ class Event(models.Model):
         super(Event , self).save(*args,**kwargs)
     def __str__(self):
         return str(self.eve_name)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        img = Image.open(self.eve_image.path)
+        if img.height > 500 or img.width > 500:
+            output_size = (500  , 500)
+            img.thumbnail(output_size)
+            img.save(self.eve_image.path)
 
 
 

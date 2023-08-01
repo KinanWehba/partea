@@ -13,7 +13,7 @@ def event_weekly(request):
 
 def events_list(request):
     events_list = Event.objects.order_by("eve_date_start")
-    paginator = Paginator(events_list, 1) 
+    paginator = Paginator(events_list, 5) 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     context={"events_list":page_obj}
@@ -43,7 +43,7 @@ def add_event(request):
             myform.eve_owner = request.user
             myform.save()
 
-            return redirect(reverse('event:event_list'))
+            return redirect(reverse('event:events_list'))
     else:
         form = EventForm()
     return render(request,'event/add_event.html',{'form':form})
