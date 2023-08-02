@@ -20,7 +20,7 @@ class Profile(models.Model):
     phone_number = models.CharField(("Phone Number"), max_length=20)
     city = models.ForeignKey('City', on_delete=models.CASCADE, null=True , blank=True)
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.user.username}'
     
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
