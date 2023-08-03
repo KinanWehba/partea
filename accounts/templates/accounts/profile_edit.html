@@ -23,11 +23,11 @@
                         <form  method="POST" enctype="multipart/form-data">
                             
                             {% csrf_token %}
+                            {% bootstrap_form userform %}
+                            {% bootstrap_form profileform %}
 
-                            {% bootstrap_form form %}
-
-                        
-                            <button class="boxed-btn3 w-100" type="submit">Share Event</button>
+   
+                            <button class="boxed-btn3 w-100" type="submit">Save</button>
 
                         </form>
                     </div>

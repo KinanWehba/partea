@@ -1,5 +1,7 @@
+
 from django.shortcuts import redirect, render
-from .forms import SingUpForm
+from django.urls import reverse
+from .forms import SingUpForm , UserUpdateForm , ProfileUpdateForm 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from .models import Profile
@@ -23,4 +25,26 @@ def profile (request):
     return render(request,'accounts/profile.html',{'profile':profile})
 
 def profile_edit (request):
-    return render(request,'accounts/profile_edit.html')
+    user_profile = Profile.objects.get(user=request.user)
+    if request.method == 'POST':
+        userform = UserUpdateForm(request.POST,instance=request.user)
+        profileform   = ProfileUpdateForm (request.POST,request.FILES,instance=user_profile)
+        context = {
+            'userform':userform,
+            'profileform':profileform  ,
+        }
+        if userform.is_valid() and profileform.is_valid():
+            userform.save()
+            myprofile = profileform.save(commit=False)
+            myprofile.user = request.user
+            myprofile.save()
+            return redirect(reverse("accounts:profile"))
+
+    else:
+        userform = UserUpdateForm(instance=request.user)
+        profileform   = ProfileUpdateForm (instance=user_profile)
+        context = {
+            'userform':userform,
+            'profileform':profileform  ,
+        }
+    return render(request,'accounts/profile_edit.html',context)
