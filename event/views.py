@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from .forms import ReservationForm , EventForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from .filters import EventFilter
 
 
 
@@ -14,10 +15,13 @@ def event_weekly(request):
 
 def events_list(request):
     events_list = Event.objects.order_by("eve_date_start")
+    my_filter = EventFilter(request.GET,queryset=events_list)
+    events_list = my_filter.qs
     paginator = Paginator(events_list, 5) 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    context={"events_list":page_obj}
+
+    context={"events_list":page_obj,"my_filter":my_filter}
     return render(request, "event/events_list.html", context)
 
 def event_detail(request,eve_slug):
