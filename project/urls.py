@@ -25,6 +25,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls',namespace='accounts')),
     path('admin/', admin.site.urls),
     path('event/', include('event.urls',namespace='event')),
+    path('', include('event.urls')),
     path('contact-us/', include('contact.urls',namespace='contact')),
     path('api-auth/', include('rest_framework.urls')),
     # path('venue/', include('venue.urls',namespace='venue')),
