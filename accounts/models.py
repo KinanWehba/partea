@@ -19,6 +19,7 @@ class Profile(models.Model):
     image = models.ImageField( upload_to=image_upload)
     phone_number = models.CharField(("Phone Number"), max_length=20)
     city = models.ForeignKey('City', on_delete=models.CASCADE, null=True , blank=True)
+    is_venue = models.BooleanField(default=False)
     def __str__(self):
         return f'{self.user.username}'
     
@@ -26,6 +27,9 @@ class Profile(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
+
+
     
 class City(models.Model):
     name = models.CharField(max_length=50 )
