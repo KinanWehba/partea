@@ -5,6 +5,8 @@ from .forms import SingUpForm , UserUpdateForm , ProfileUpdateForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from .models import Profile
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 def signup (request):
     if request.method == 'POST':
@@ -19,11 +21,11 @@ def signup (request):
     else:
         form = SingUpForm()
     return render(request,'registration/signup.html',{'form':form})
-
+@login_required
 def profile (request):
     profile = Profile.objects.get(user=request.user)
     return render(request,'accounts/profile.html',{'profile':profile})
-
+@login_required
 def profile_edit (request):
     user_profile = Profile.objects.get(user=request.user)
     if request.method == 'POST':

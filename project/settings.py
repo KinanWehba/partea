@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['https://polite-pika-67c9a6.netlify.app/']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'django_filters',
     'rest_framework',
+    'bootstrap_datepicker_plus',
     
 ]
 
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'project.middleware.AdminAccessMiddleware', 
 ]
 
 ROOT_URLCONF = 'project.urls'

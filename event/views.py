@@ -5,14 +5,21 @@ from .forms import ReservationForm , EventForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .filters import EventFilter
+from datetime import datetime
 
 
 
 def event_weekly(request):
-    event_weekly= Event.objects.all()
+    today = datetime.now().date()
+    event_weekly= Event.objects.filter(eve_date_start__gte=today).order_by('eve_date_start')
+    paginator = Paginator(event_weekly, 5) 
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, "event/event_weekly.html",{"event_weekly":event_weekly})
+    context={"event_weekly":page_obj}
+    return render(request, "event/event_weekly.html", context)
 
+   
 def events_list(request):
     events_list = Event.objects.order_by("eve_date_start")
     my_filter = EventFilter(request.GET,queryset=events_list)
