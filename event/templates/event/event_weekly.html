@@ -18,61 +18,55 @@
     <!--/ bradcam_area  -->
 
     <!-- job_listing_area_start  -->
-   
-        <div class="container" style="margin-top: 50px;">
+    <div class="job_listing_area plus_padding">
+        <div class="container">
             <div class="row">
 
                 <div class="col-lg-9">
-
-
+                    <div class="recent_joblist_wrap">
+                        <div class="recent_joblist white-bg ">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <h4>Events</h4>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="job_lists m-0">
                         <div class="row">
                             {% for event in event_weekly %}
-                      
-                        
-
-                                
-                              <section id="gallery">
-                                <div class="container">
-                                  <div class="row">
-                                  <div class="col-lg-4 mb-4">
-                                  <div class="card">
-                                    <img src="{{event.eve_image.url}}" alt="" class="card-img-top">
-                                    <div class="card-body">
-                                      <h5 class="card-title">Sunset</h5>
-                                      <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum similique repellat a laborum, rerum voluptates ipsam eos quo tempore iusto dolore modi dolorum in pariatur. Incidunt repellendus praesentium quae!</p>
-                                     <a href="" class="btn btn-outline-success btn-sm">Read More</a>
-                                      <a href="" class="btn btn-outline-danger btn-sm"><i class="far fa-heart"></i></a>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="single_jobs white-bg d-flex justify-content-between">
+                                    <div class="jobs_left d-flex align-items-center">
+                                        <div class="thumb p-0" style="border-radius: 10px; overflow: hidden;">
+                                            <img src="{{event.eve_image.url}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                                        </div>
+                                        <div class="jobs_conetent">
+                                            <a href="{% url 'event:event_detail' event.eve_slug %}"><h4>{{event}}</h4></a>
+                                            <div class="links_locat d-flex align-items-center">
+                                                <div class="location">
+                                                    <p> <i class="fa fa-map-marker"></i>{{event.eve_venue}}</p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-clock-o"></i>{{event.eve_date_start}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                   </div>
-                                  </div>
-                                <div class="col-lg-4 mb-4">
-                                <div class="card">
-                                    <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60" alt="" class="card-img-top">
-                                    <div class="card-body">
-                                      <h5 class="card-title">Sunset</h5>
-                                      <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum similique repellat a laborum, rerum voluptates ipsam eos quo tempore iusto dolore modi dolorum in pariatur. Incidunt repellendus praesentium quae!</p>
-                                     <a href="" class="btn btn-outline-success btn-sm">Read More</a>
-                                      <a href="" class="btn btn-outline-danger btn-sm"><i class="far fa-heart"></i></a>
+                                    <div class="jobs_right">
+                                        <div class="apply_now">
+                                            <a class="heart_mark" href="#"> <i class="fa fa-heart"></i> </a>
+                                            <a href="{% url 'event:event_detail' event.eve_slug %}" class="boxed-btn3">Apply Now</a>
+                                        </div>
+                                        <div class="date">
+                                            <p>welcome</p>
+                                        </div>
                                     </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-4 mb-4">
-                                  <div class="card">
-                                    <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60" alt="" class="card-img-top">
-                                    <div class="card-body">
-                                      <h5 class="card-title">Sunset</h5>
-                                      <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum similique repellat a laborum, rerum voluptates ipsam eos quo tempore iusto dolore modi dolorum in pariatur. Incidunt repellendus praesentium quae!</p>
-                                     <a href="" class="btn btn-outline-success btn-sm">Read More</a>
-                                      <a href="" class="btn btn-outline-danger btn-sm"><i class="far fa-heart"></i></a>
-                                    </div>
-                                   </div>
-                                  </div>
                                 </div>
-                        
-                              </section>
-                              
+                            </div>
                             {% endfor %}
 
                         </div>
@@ -101,7 +95,7 @@
                 </div>
             </div>
         </div>
- 
+    </div>
     <!-- job_listing_area_end  -->
 
 {% endblock body%}
