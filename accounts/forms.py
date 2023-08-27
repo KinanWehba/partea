@@ -4,10 +4,6 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 
-
-
-
-
 class SingUpForm (UserCreationForm):
     class Meta:
         model = User
@@ -19,6 +15,10 @@ class UserUpdateForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'email']
 
 class ProfileUpdateForm (forms.ModelForm):
+    
     class Meta:
         model = Profile
         fields = ['image','phone_number','city']
+        widgets = {
+            'city': forms.Select(attrs={'style': 'height: auto;'}),
+        }

@@ -7,8 +7,6 @@ from django.contrib.auth.decorators import login_required
 from .filters import EventFilter
 from datetime import datetime
 
-
-
 def event_weekly(request):
     today = datetime.now().date()
     event_weekly= Event.objects.filter(eve_date_start__gte=today).order_by('eve_date_start')
@@ -19,7 +17,6 @@ def event_weekly(request):
     context={"event_weekly":page_obj}
     return render(request, "event/event_weekly.html", context)
 
-   
 def events_list(request):
     events_list = Event.objects.order_by("eve_date_start")
     my_filter = EventFilter(request.GET,queryset=events_list)

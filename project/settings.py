@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'bootstrap_datepicker_plus',
+
     
 ]
 
