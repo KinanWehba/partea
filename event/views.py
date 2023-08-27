@@ -9,7 +9,8 @@ from datetime import datetime
 
 def event_weekly(request):
     today = datetime.now().date()
-    event_weekly= Event.objects.filter(eve_date_start__gte=today).order_by('eve_date_start')
+    # event_weekly= Event.objects.filter(eve_date_start__gte=today).order_by('eve_date_start')
+    event_weekly= Event.objects.order_by('eve_date_start')
     paginator = Paginator(event_weekly, 5) 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
