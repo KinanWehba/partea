@@ -1299,6 +1299,8 @@ ul {
   min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
+
+  align-items: center; /* يوسط العناصر عموديًا */
 }
 .discount .image {
   background-image: url(../imgs/discount-background1.jpg);
@@ -1328,11 +1330,13 @@ ul {
   }
 }
 .discount .form {
-  display: flex;
+
   align-items: center;
   justify-content: center;
   flex-basis: 50%;
   padding-bottom: 50px;
+  width: 100%;
+
 }
 @media (max-width: 991px) {
   .discount .form {

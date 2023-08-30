@@ -20,7 +20,7 @@ def send_message(request):
     
 
     return render(request, 'contact/contact.html')
-def send_message(request):
+def send_message1(request):
 
     
 
