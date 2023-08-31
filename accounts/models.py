@@ -9,7 +9,6 @@ def image_upload(instance, filename):
     now = datetime.now()
     timestamp = now.strftime('%Y%m%d%H%M%S')
     folder_path = f'user/{instance.user.id}'
-
     image_path = f'{folder_path}/{timestamp}.png'
     return image_path
 
@@ -18,7 +17,7 @@ def image_upload(instance, filename):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField( upload_to=image_upload, null=True , blank=True)
-    phone_number = models.CharField(("Phone Number"), max_length=20, null=True , blank=True)
+    phone_number = models.CharField(("Phone Number"), max_length=20)
     city = models.ForeignKey('City', on_delete=models.CASCADE, null=True , blank=True)
     is_venue = models.BooleanField(default=False)
     def __str__(self):
